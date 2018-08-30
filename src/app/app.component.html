@@ -1,0 +1,60 @@
+<div class="container">
+  <h1 style="text-align:center">
+    Welcome to {{ title }}!
+  </h1>
+
+  <form [formGroup]="userForm" *ngIf="!submitted" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="">Name</label>
+      <input type="text" #name class="form-control" formControlName="name">
+      <div class="danger" *ngIf="userForm.controls['name'].hasError('required')">
+        Please enter a name
+      </div>
+
+      <div class="danger" *ngIf="userForm.controls['name'].hasError('minlength')">
+        Please enter at least 4 characters
+      </div>
+
+      <div class="danger" *ngIf="userForm.controls['name'].hasError('maxlength')">
+        Length should not exceed 10 characters
+      </div>
+    </div>
+
+    {{name.className}}
+
+    <div class="form-group">
+      <label for="">Email</label>
+      <input type="text" class="form-control" formControlName="email">
+    </div>
+
+    <div formGroupName="address">
+
+      <div class="form-group">
+        <label for="">Street</label>
+        <input type="text" class="form-control" formControlName="street">
+      </div>
+
+      <div class="form-group">
+        <label for="">City</label>
+        <input type="text" class="form-control" formControlName="city">
+      </div>
+
+      <div class="form-group">
+        <label for="">PostalCode</label>
+        <input type="text" class="form-control" formControlName="postalcode">
+        
+        <div class="danger" *ngIf="userForm.controls['address'].controls['postalcode'].hasError('pattern')">
+          Postal code should be digits and length should be 6 digits
+        </div>
+      </div>
+
+    </div>
+
+
+    <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary">Submit
+    </button>
+
+  </form>
+
+</div>
